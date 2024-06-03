@@ -6,7 +6,7 @@
 #    By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/03 12:19:56 by ryomori           #+#    #+#              #
-#    Updated: 2024/06/03 13:30:34 by ryomori          ###   ########.fr        #
+#    Updated: 2024/06/03 16:13:25 by ryomori          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,15 @@ CLIENT_SRC		=	client.c
 CLIENT_OBJ		=	$(CLIENT_SRC:%.c=%.o)
 
 SRCS			=	utils.c utils2.c
-
 OBJS			=	$(SRCS:%.c=%.o)
 
+SERVER_BONUS		=	server_bonus
+SERVER_BONUS_SRC	=	server_bonus.c
+SERVER_BONUS_OBJ	=	$(SERVER_BONUS_SRC:%.c=%.o)
 
+CLIENT_BONUS		=	client_bonus
+CLIENT_BONUS_SRC	=	client_bonus.c
+CLIENT_BONUS_OBJ	=	$(CLIENT_BONUS_SRC:%.c=%.o)
 
 %.o: %.c
 		$(CC) $(CFLAGS) -c $< -o $@
@@ -39,15 +44,22 @@ $(SERVER):	$(SERVER_OBJ) $(OBJS)
 $(CLIENT):	$(CLIENT_OBJ) $(OBJS)
 		$(CC) $(CFLAGS) $(CLIENT_OBJ) $(OBJS) -o $(CLIENT)
 
-$(NAME):	$(SERVER) $(CLIENT)
+$(NAME):$(SERVER) $(CLIENT)
 
+bonus: $(SERVER_BONUS) $(CLIENT_BONUS)
+
+$(SERVER_BONUS): $(SERVER_BONUS_OBJ) $(OBJS)
+			$(CC) $(CFLAGS) $(SERVER_BONUS_OBJ) $(OBJS) -o $(SERVER_BONUS)
+
+$(CLIENT_BONUS): $(CLIENT_BONUS_OBJ) $(OBJS)
+			$(CC) $(CFLAGS) $(CLIENT_BONUS_OBJ) $(OBJS) -o $(CLIENT_BONUS)
 
 clean:
-		rm -rf $(SERVER_OBJ) $(CLIENT_OBJ) $(OBJS)
+		rm -rf $(SERVER_OBJ) $(CLIENT_OBJ) $(OBJS) $(SERVER_BONUS_OBJ) $(CLIENT_BONUS_OBJ)
 
 fclean: clean
-		rm -rf $(SERVER) $(CLIENT)
+		rm -rf $(SERVER) $(CLIENT) $(SERVER_BONUS) $(CLIENT_BONUS)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
