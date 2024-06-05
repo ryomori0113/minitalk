@@ -6,7 +6,7 @@
 /*   By: ryomori <ryomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:57:42 by ryomori           #+#    #+#             */
-/*   Updated: 2024/06/03 15:40:59 by ryomori          ###   ########.fr       */
+/*   Updated: 2024/06/05 11:35:54 by ryomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("Argument Error\n", STDOUT_FILENO);
 		return (-1);
 	}
-
 	pid = ft_atoi(argv[1]);
 	if (pid <= 0 || pid > PID_MAX)
 		return (-1);
